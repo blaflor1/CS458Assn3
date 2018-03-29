@@ -12,11 +12,13 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.xml.bind.DatatypeConverter;
+import java.security.NoSuchAlgorithmException;
 
 public class GenPass {
 	public String id;
 	public String password;
 	public String date;
+	public String hashPass;
 
 	public GenPass(String n, String p, String d) {
 		id = n;
@@ -24,14 +26,22 @@ public class GenPass {
 		date = d;
 	}
 	public void hashPassword(String pass) {
-
-		MessageDigest md = MessageDigest.getInstance("MD5");
-		md.update(pass.getBytes());
-		byte[] digest = md.digest();
-		String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(pass.getBytes());
+			byte[] digest = md.digest();
+			String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
+		} catch (NoSuchAlgorithmException n) {
+			n.printStackTrace();
+			System.err.println("Error with algo");
+		}
 		try{
 			PrintWriter writer = new PrintWriter("password.txt", "UTF-8");
-			writer.println();
+			writer.write(id);
+			writer.write(" test ");
+			writer.write(password);
+			writer.write(" ");
+			writer.write(date);
 		} catch (FileNotFoundException e) {
 			  e.printStackTrace();
 			  System.err.println("Error while writing to output file");
