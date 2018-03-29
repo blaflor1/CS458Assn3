@@ -31,6 +31,7 @@ public class GenPass {
 		String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
 		try{
 			PrintWriter writer = new PrintWriter("password.txt", "UTF-8");
+			writer.println();
 		} catch (FileNotFoundException e) {
 			  e.printStackTrace();
 			  System.err.println("Error while writing to output file");
@@ -39,7 +40,7 @@ public class GenPass {
 	           e2.printStackTrace();
 	           System.err.println("Error while writing to output file");
 	       }
-	    writer.println();
+	    
 	}
 
 
