@@ -45,11 +45,12 @@ public class GenPass {
 
 			//PrintWriter writer = new PrintWriter("password.txt", "UTF-8");
 			//writer.println("balls");
-			writer.println(na);
-			writer.println(" ");
-			writer.println(hashPass);
-			writer.println(" ");
-			writer.println(time_stamp);
+			writer.print(na);
+			writer.print(" ");
+			writer.print(hashPass);
+			writer.print(" ");
+			writer.print(time_stamp);
+			writer.print(" ");
 			writer.close();
 		} catch (FileNotFoundException e) {
 			  e.printStackTrace();
