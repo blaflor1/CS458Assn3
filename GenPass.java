@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.File;
@@ -25,23 +26,31 @@ public class GenPass {
 		password = p;
 		date = d;
 	}
-	public void hashPassword(String pass) {
+	public void hashPassword(String pass, String na, String time_stamp) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			md.update(pass.getBytes());
 			byte[] digest = md.digest();
 			String myHash = DatatypeConverter.printHexBinary(digest).toUpperCase();
+			hashPass = myHash;
 		} catch (NoSuchAlgorithmException n) {
 			n.printStackTrace();
 			System.err.println("Error with algo");
 		}
 		try{
-			PrintWriter writer = new PrintWriter("password.txt", "UTF-8");
-			writer.write(id);
-			writer.write(" test ");
-			writer.write(password);
-			writer.write(" ");
-			writer.write(date);
+
+			File log = new File("password.txt");
+			
+			PrintWriter writer = new PrintWriter(new FileWriter(log, true));
+
+			//PrintWriter writer = new PrintWriter("password.txt", "UTF-8");
+			//writer.println("balls");
+			writer.println(na);
+			writer.println(" ");
+			writer.println(hashPass);
+			writer.println(" ");
+			writer.println(time_stamp);
+			writer.close();
 		} catch (FileNotFoundException e) {
 			  e.printStackTrace();
 			  System.err.println("Error while writing to output file");
@@ -50,6 +59,10 @@ public class GenPass {
 	           e2.printStackTrace();
 	           System.err.println("Error while writing to output file");
 	       }
+	       catch(IOException e3) {
+				e3.printStackTrace();
+				System.err.println("Idk dude lol");
+			}
 	    
 	}
 
@@ -63,7 +76,7 @@ public class GenPass {
 		Date date = new Date(); 
 		String string_date = date.toString();
 		GenPass first_user = new GenPass(name, pw, string_date);
-		first_user.hashPassword(pw);
+		first_user.hashPassword(pw, name, string_date);
 		
 	}
 }
