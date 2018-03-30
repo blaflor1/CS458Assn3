@@ -50,7 +50,7 @@ public class GenPass {
 			writer.print(hashPass);
 			writer.print(" ");
 			writer.print(time_stamp);
-			writer.print(" ");
+			writer.print("\n");
 			writer.close();
 		} catch (FileNotFoundException e) {
 			  e.printStackTrace();
